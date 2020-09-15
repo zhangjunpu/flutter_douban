@@ -11,7 +11,10 @@ class RatingStart extends StatefulWidget {
   final Color unselectedColor; // 未选中颜色
   final Color selectedColor; // 选中颜色
 
-  const RatingStart({
+  final Widget unselectedImage; // 未选中星星
+  final Widget selectedImage; // 选中星星
+
+  RatingStart({
     Key key,
     @required this.rating,
     this.maxRating = 10,
@@ -19,7 +22,13 @@ class RatingStart extends StatefulWidget {
     this.size = 30,
     this.unselectedColor = const Color(0xffbbbbbb),
     this.selectedColor = const Color(0xffff0000),
-  }) : super(key: key);
+    Widget unselectedImage,
+    Widget selectedImage,
+  })  : unselectedImage = unselectedImage ??
+            Icon(Icons.star_border, color: unselectedColor, size: size),
+        selectedImage =
+            selectedImage ?? Icon(Icons.star, color: selectedColor, size: size),
+        super(key: key);
 
   @override
   _RatingStartState createState() => _RatingStartState();
@@ -38,15 +47,14 @@ class _RatingStartState extends State<RatingStart> {
 
   List<Widget> buildUnselectedStars() {
     return List.generate(widget.count, (index) {
-      return Icon(Icons.star_border,
-          size: widget.size, color: widget.unselectedColor);
+      return widget.unselectedImage;
     });
   }
 
   List<Widget> buildSelectedStars() {
     List<Widget> list = [];
     // 1. 初始化star
-    var star = Icon(Icons.star, size: widget.size, color: widget.selectedColor);
+    final star = widget.selectedImage;
 
     // 2. 添加完整的star
     double oneValue = widget.maxRating / widget.count;
@@ -62,16 +70,19 @@ class _RatingStartState extends State<RatingStart> {
       clipper: StarClipper(clipperWidth),
       child: star,
     ));
+
+    if (list.length > widget.count) {
+      list = list.sublist(0, widget.count);
+    }
     return list;
   }
 }
-
 
 /// 不完整的star
 /// [author] junpu
 /// [date] 2020/9/15
 class StarClipper extends CustomClipper<Rect> {
-  final double width;
+  double width;
 
   StarClipper(this.width);
 

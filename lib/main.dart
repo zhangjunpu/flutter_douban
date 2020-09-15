@@ -32,7 +32,9 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: RatingStart(
-          rating: 8.8,
+          rating: 2.4,
+          size: 50,
+          selectedColor: Colors.orange,
         ),
       ),
     );
