@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/widget/rating_start.dart';
+import 'package:flutter_douban/widget/dashed_line.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,10 +31,28 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: RatingStart(
-          rating: 2.4,
-          size: 50,
-          selectedColor: Colors.orange,
+        child: Container(
+          width: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                child: DashedLine(
+                  strokeWidth: 1,
+                  dashWidth: 5,
+                  dashGap: 3,
+                ),
+              ),
+              Container(
+                height: 300,
+                child: DashedLine(
+                  axis: Axis.vertical,
+                  strokeWidth: 1,
+                  dashWidth: 5,
+                  dashGap: 3,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

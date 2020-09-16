@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// 评分Widget
-/// [author] junpu
-/// [date] 2020/9/15
+/// {@author junpu}
+/// {@date 2020/9/15}
 class RatingStart extends StatefulWidget {
   final double rating; // 当前分数
   final double maxRating; // 最大分数
@@ -15,7 +15,6 @@ class RatingStart extends StatefulWidget {
   final Widget selectedImage; // 选中星星
 
   RatingStart({
-    Key key,
     @required this.rating,
     this.maxRating = 10,
     this.count = 5,
@@ -24,11 +23,8 @@ class RatingStart extends StatefulWidget {
     this.selectedColor = const Color(0xffff0000),
     Widget unselectedImage,
     Widget selectedImage,
-  })  : unselectedImage = unselectedImage ??
-            Icon(Icons.star_border, color: unselectedColor, size: size),
-        selectedImage =
-            selectedImage ?? Icon(Icons.star, color: selectedColor, size: size),
-        super(key: key);
+  })  : unselectedImage = unselectedImage ?? Icon(Icons.star_border, color: unselectedColor, size: size),
+        selectedImage = selectedImage ?? Icon(Icons.star, color: selectedColor, size: size);
 
   @override
   _RatingStartState createState() => _RatingStartState();
