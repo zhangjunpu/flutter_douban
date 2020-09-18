@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 class DashedLine extends StatelessWidget {
   final Axis axis; // 方向
   final Color color; // 颜色
-  final double strokeWidth; // 边框宽度
-  final double dashWidth; // 虚线尺寸
+  final double dashWidth; // 虚线宽度
+  final double dashHeight; // 虚线高度
   final double dashGap; // 虚线间隙
 
   const DashedLine({
     this.axis = Axis.horizontal,
     this.color = const Color(0xffcccccc),
-    this.strokeWidth = 1,
     this.dashWidth = 1,
+    this.dashHeight = 1,
     this.dashGap = 1,
   });
 
@@ -37,8 +37,8 @@ class DashedLine extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(count, (index) {
             return SizedBox(
-              width: axis == Axis.horizontal ? dashWidth : strokeWidth,
-              height: axis == Axis.horizontal ? strokeWidth : dashWidth,
+              width: dashWidth,
+              height: dashHeight,
               child: DecoratedBox(
                 decoration: BoxDecoration(color: color),
               ),

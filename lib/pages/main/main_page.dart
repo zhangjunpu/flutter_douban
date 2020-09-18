@@ -15,15 +15,15 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: indexStackItems(),
+        children: pages(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: items(),
+        currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
         selectedFontSize: 12,
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.green,
-        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;

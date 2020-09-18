@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class HomeContent extends StatelessWidget {
+import 'subject_content.dart';
+
+class SubjectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("首页"),
+        title: Text("书影音"),
       ),
-      body: Center(
-        child: Text("首页"),
-      ),
+      body: SubjectContent(),
     );
   }
 }

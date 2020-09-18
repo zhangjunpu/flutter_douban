@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/group/group_content.dart';
-import 'package:flutter_douban/pages/mall/mall_content.dart';
-import 'package:flutter_douban/pages/profile/profile_content.dart';
-import 'package:flutter_douban/pages/subject/subject_content.dart';
 
-import 'home_content.dart';
+import '../group/group.dart';
+import '../home/home.dart';
+import '../mall/mall.dart';
+import '../profile/profile.dart';
+import '../subject/subject.dart';
 
 BottomNavigationBarItem item(String name, String iconName) {
   return BottomNavigationBarItem(
@@ -32,12 +32,12 @@ List<BottomNavigationBarItem> items() {
   ];
 }
 
-List<Widget> indexStackItems(){
+List<Widget> pages() {
   return [
-    HomeContent(),
-    SubjectContent(),
-    GroupContent(),
-    MallContent(),
-    ProfileContent()
+    HomePage(),
+    SubjectPage(),
+    GroupPage(),
+    MallPage(),
+    ProfilePage(),
   ];
 }

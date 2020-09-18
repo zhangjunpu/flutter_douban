@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_douban/pages/main/main_page.dart';
-import 'package:flutter_douban/widget/dashed_line.dart';
+
+import 'pages/main/main_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        // highlightColor: Colors.transparent
       ),
       home: MainPage(),
     );
