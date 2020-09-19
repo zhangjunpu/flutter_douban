@@ -16,7 +16,9 @@ class _HomeContentState extends State<HomeContent> {
   void initState() {
     super.initState();
     HomeRequest.requestMovieList(page).then((value) {
-      movies = value;
+      setState(() {
+        movies = value;
+      });
     }).catchError((err) {
       print(err);
     });

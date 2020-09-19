@@ -45,13 +45,20 @@ class HomeMovieItem extends StatelessWidget {
     return Stack(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
+          borderRadius: BorderRadius.circular(4),
           child: FadeInImage.assetNetwork(
             placeholder: "assets/images/ic_default_h.png",
             imageErrorBuilder: (context, err, stackTrace) {
               print('$err, $stackTrace');
-              return Image.asset("assets/images/ic_default_h.png",
-                  width: 108, height: 160);
+              // return Image.asset("assets/images/ic_default_h.png",
+              //     width: 108, height: 160);
+              return Container(
+                width: 108,
+                height: 160,
+                color: Color(0xffcccccc),
+                child: Icon(Icons.photo, color: Colors.grey, size: 40),
+                // child: Text("\ue410", style: TextStyle(fontFamily: 'MaterialIcons')),
+              );
             },
             image: movie.images.large,
             width: 108,
@@ -103,16 +110,21 @@ class HomeMovieItem extends StatelessWidget {
 
   /// 1.2.1 构建信息标题
   Widget buildInfoTitle() {
-    return Text.rich(TextSpan(children: [
-      WidgetSpan(
-        child: Icon(Icons.play_circle_outline, color: Colors.pink, size: 24),
-      ),
-      WidgetSpan(child: SizedBox(width: 5)),
+    return Text.rich(
       TextSpan(
-        text: movie.title.split(" ")[0],
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      )
-    ]));
+        children: [
+          WidgetSpan(
+            child:
+                Icon(Icons.play_circle_outline, color: Colors.pink, size: 24),
+          ),
+          WidgetSpan(child: SizedBox(width: 5)),
+          TextSpan(
+            text: movie.title.split(" ")[0],
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          )
+        ],
+      ),
+    );
   }
 
   /// 1.2.2 构建评分
@@ -178,7 +190,7 @@ class HomeMovieItem extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xfff2f2f2),
-        borderRadius: BorderRadius.all(Radius.circular(4)),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Text(movie.original_title),
     );
