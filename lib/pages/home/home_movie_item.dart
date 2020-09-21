@@ -50,14 +50,11 @@ class HomeMovieItem extends StatelessWidget {
             placeholder: "assets/images/ic_default_h.png",
             imageErrorBuilder: (context, err, stackTrace) {
               print('$err, $stackTrace');
-              // return Image.asset("assets/images/ic_default_h.png",
-              //     width: 108, height: 160);
               return Container(
                 width: 108,
                 height: 160,
-                color: Color(0xffcccccc),
-                child: Icon(Icons.photo, color: Colors.grey, size: 40),
-                // child: Text("\ue410", style: TextStyle(fontFamily: 'MaterialIcons')),
+                color: Color(0xffeeeeee),
+                child: Icon(Icons.photo, color: Color(0xffbbbbbb), size: 40),
               );
             },
             image: movie.images.large,
@@ -72,24 +69,30 @@ class HomeMovieItem extends StatelessWidget {
 
   /// 1.1.1 构建排名
   Widget buildRank() {
-    Color color;
+    Color bgColor;
+    Color textColor;
     if (movie.rank == 1) {
-      color = Colors.amber;
+      bgColor = Color(0xffFFD700);
     } else if (movie.rank == 2) {
-      color = Colors.white;
+      bgColor = Color(0xffe6e8fa);
     } else if (movie.rank == 3) {
-      color = Colors.orange;
+      bgColor = Color(0xffb87333);
     } else {
-      color = Colors.black45;
+      bgColor = Colors.black54;
+    }
+    if (movie.rank == 2) {
+      textColor = Color(0xff222222);
+    } else {
+      textColor = Colors.white;
     }
     return Stack(
       alignment: Alignment.center,
       children: [
-        Icon(Icons.bookmark, color: color, size: 30),
+        Icon(Icons.bookmark, color: bgColor, size: 30),
         Container(
             padding: EdgeInsets.only(bottom: 3),
             child: Text("${movie.rank}",
-                style: TextStyle(fontSize: 14, color: Colors.white)))
+                style: TextStyle(fontSize: 14, color: textColor)))
       ],
     );
   }
@@ -143,13 +146,16 @@ class HomeMovieItem extends StatelessWidget {
     );
   }
 
-  /// 1.2.3 构建信息消息
+  /// 1.2.3 构建信息内容
   Widget buildInfoMessage() {
     var countries = movie.countries.join(" ");
     var genres = movie.genres.join(" ");
     var directors = movie.directors.map((e) => e.name).join(" ");
     var actors = movie.casts.map((e) => e.name).join(" ");
-    return Text("${movie.year} / $countries / $genres / $directors / $actors");
+    return Text(
+      "${movie.year} / $countries / $genres / $directors / $actors",
+      style: TextStyle(color: Color(0xff999999)),
+    );
   }
 
   /// 1.3 构建虚线
