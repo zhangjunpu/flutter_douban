@@ -1,11 +1,11 @@
 
-var index = 0;
+var movieRankIndex = 0;
 
 /// 电影Item
 /// {@author junpu}
 /// {@date 2020/9/18}
 class Movie {
-  int rank = ++index;
+  int rank = ++movieRankIndex;
   List<Casts> casts;
   int comments_count;
   List<String> countries;
