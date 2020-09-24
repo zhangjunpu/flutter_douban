@@ -12,12 +12,14 @@ BottomNavigationBarItem item(String name, String iconName) {
       "assets/images/tabbar/$iconName.png",
       width: 30,
       height: 30,
+      gaplessPlayback: true,
     ),
     title: Text(name),
     activeIcon: Image.asset(
       "assets/images/tabbar/${iconName}_active.png",
       width: 30,
       height: 30,
+      gaplessPlayback: true,
     ),
   );
 }
