@@ -31,11 +31,20 @@ class HomeMovieItem extends StatelessWidget {
         SizedBox(width: 8),
         buildImage(),
         SizedBox(width: 8),
-        Expanded(child: buildInfo()),
-        SizedBox(width: 8),
-        buildDashedLine(),
-        SizedBox(width: 8),
-        buildWish(),
+        Expanded(
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: buildInfo()),
+                SizedBox(width: 8),
+                buildDashedLine(),
+                SizedBox(width: 8),
+                buildWish(),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -114,19 +123,22 @@ class HomeMovieItem extends StatelessWidget {
   /// 1.2.1 构建信息标题
   Widget buildInfoTitle() {
     return Text.rich(
-      TextSpan(
-        children: [
-          WidgetSpan(
-            child:
-                Icon(Icons.play_circle_outline, color: Colors.pink, size: 24),
-          ),
-          WidgetSpan(child: SizedBox(width: 5)),
-          TextSpan(
-            text: movie.title.split(" ")[0],
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
+      TextSpan(children: [
+        WidgetSpan(
+          child: Icon(Icons.play_circle_outline, color: Colors.pink, size: 28),
+          alignment: PlaceholderAlignment.middle,
+        ),
+        WidgetSpan(child: SizedBox(width: 5)),
+        ...movie.title.split(" ")[0].runes.map((e) {
+          return WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: Text(
+              String.fromCharCode(e),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          );
+        }).toList(),
+      ]),
     );
   }
 
@@ -151,7 +163,10 @@ class HomeMovieItem extends StatelessWidget {
     var countries = movie.countries.join(" ");
     var genres = movie.genres.join(" ");
     var directors = movie.directors.map((e) => e.name).join(" ");
-    var actors = movie.casts.map((e) => e.name).join(" ");
+    var actors = movie.casts
+        .map((e) => e.name)
+        .skipWhile((value) => value == movie.directors[0].name)
+        .join(" ");
     return Text(
       "${movie.year} / $countries / $genres / $directors / $actors",
       style: TextStyle(color: Color(0xff999999)),
@@ -161,7 +176,6 @@ class HomeMovieItem extends StatelessWidget {
   /// 1.3 构建虚线
   Widget buildDashedLine() {
     return Container(
-      height: 100,
       child: DashedLine(
         axis: Axis.vertical,
         dashWidth: 1,
@@ -175,7 +189,6 @@ class HomeMovieItem extends StatelessWidget {
   Widget buildWish() {
     return Container(
       padding: EdgeInsets.all(12),
-      height: 100,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

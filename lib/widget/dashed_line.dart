@@ -5,47 +5,58 @@ import 'package:flutter/material.dart';
 ///
 /// {@author junpu}
 /// {@date 2020/9/16}
-class DashedLine extends StatelessWidget {
+class DashedLine extends StatefulWidget {
   final Axis axis; // 方向
   final Color color; // 颜色
   final double dashWidth; // 虚线宽度
   final double dashHeight; // 虚线高度
   final double dashGap; // 虚线间隙
 
-  const DashedLine({
-    this.axis = Axis.horizontal,
-    this.color = const Color(0xffcccccc),
-    this.dashWidth = 1,
-    this.dashHeight = 1,
-    this.dashGap = 1,
-  });
+  DashedLine(
+      {this.axis = Axis.horizontal,
+      this.color = const Color(0xffcccccc),
+      this.dashWidth = 1,
+      this.dashHeight = 1,
+      this.dashGap = 1});
+
+  @override
+  _DashedLineState createState() => _DashedLineState();
+}
+
+class _DashedLineState extends State<DashedLine> {
+  double length = 100;
+
+  /// 是否是横着的
+  bool _isHorizontal() => widget.axis == Axis.horizontal;
+
+  @override
+  void initState() {
+    super.initState();
+    // 监听widget渲染完成
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        length = _isHorizontal() ? context.size.width : context.size.height;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return buildDash();
-  }
-
-  LayoutBuilder buildDash() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double size = axis == Axis.horizontal
-            ? constraints.maxWidth
-            : constraints.maxHeight;
-        int count = ((size + dashGap) / (dashWidth + dashGap)).floor();
-        return Flex(
-          direction: axis,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(count, (index) {
-            return SizedBox(
-              width: dashWidth,
-              height: dashHeight,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: color),
-              ),
-            );
-          }),
+    double width = _isHorizontal() ? widget.dashWidth : widget.dashHeight;
+    double gap = widget.dashGap;
+    int count = ((length + gap) / (width + gap)).floor();
+    return Flex(
+      direction: widget.axis,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(count, (index) {
+        return SizedBox(
+          width: widget.dashWidth,
+          height: widget.dashHeight,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: widget.color),
+          ),
         );
-      },
+      }),
     );
   }
 }
