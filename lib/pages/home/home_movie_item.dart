@@ -56,15 +56,12 @@ class HomeMovieItem extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: FadeInImage.assetNetwork(
-            placeholder: "assets/images/ic_default_h.png",
+            placeholder: "",
+            placeholderErrorBuilder: (context, err, stackTrace) {
+              return buildPlaceholder();
+            },
             imageErrorBuilder: (context, err, stackTrace) {
-              print('$err, $stackTrace');
-              return Container(
-                width: 108,
-                height: 160,
-                color: Color(0xffeeeeee),
-                child: Icon(Icons.photo, color: Color(0xffbbbbbb), size: 40),
-              );
+              return buildPlaceholder();
             },
             image: movie.images.large,
             width: 108,
@@ -73,6 +70,16 @@ class HomeMovieItem extends StatelessWidget {
         ),
         buildRank(),
       ],
+    );
+  }
+
+  /// 占位图
+  Widget buildPlaceholder() {
+    return Container(
+      width: 108,
+      height: 160,
+      color: Color(0xffeeeeee),
+      child: Icon(Icons.photo, color: Color(0xffbbbbbb), size: 40),
     );
   }
 
